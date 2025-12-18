@@ -10,5 +10,10 @@ public class RiskScore{
   @Id
   @GeneratedValue(strategy=GenerationType.INDENTITY)
   private Long id;
-  private Integer 
+  private Integer totalScore;
+  private String riskLevel;
+  private String totalScore;
+  private LocalDateTime evaluvatedAt;
+  @PrePersist
+  void cal
 }
