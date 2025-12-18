@@ -11,6 +11,6 @@ public class Visitor{
     private LocalDateTime createdAt;
     @PrePersist
     
-    }
+    
 
 }
