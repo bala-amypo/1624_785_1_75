@@ -10,6 +10,7 @@ public class Visitor{
     private String idProof;
     private LocalDateTime createdAt;
     @PrePersist
-    void 
+    
+    }
 
 }
