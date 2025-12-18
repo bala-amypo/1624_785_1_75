@@ -16,9 +16,7 @@ public class Visitor {
     private String idProof;
     private LocalDateTime createdAt;
     public Visitor() { 
-
-    }
-
+     }
     public Visitor(String fullName, String phone, String idProof, String email) {
         this.fullName = fullName;
         this.phone = phone;
