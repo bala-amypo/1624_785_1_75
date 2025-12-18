@@ -22,5 +22,9 @@ public class Visitor{
       }
       this.createdAt = LocalDateTime.now();
     }
+    public Long getId(){
+        return id;
+    }
+    public String 
 
 }
