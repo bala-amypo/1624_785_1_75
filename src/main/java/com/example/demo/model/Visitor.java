@@ -37,5 +37,20 @@ public class Visitor{
     public String getEmail(){
         return email;
     }
-    
+    public void setEmail(String email){
+        this.email=email;
+    }
+    public String getPhone(){
+        return phone;
+    }
+    public void setPhone(String phone){
+        this.phone=phone;
+    }
+    public String getIdProof(){
+        return idProof;
+    }
+    public void setIdProof(String idProof){
+        this.idProof=idProof;
+    }
+    public 
 }
