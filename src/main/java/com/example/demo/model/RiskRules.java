@@ -32,4 +32,5 @@ public class Riskrules{
    public String getRuleName(){
     return ruleName;
    }
+   public void 
 }
