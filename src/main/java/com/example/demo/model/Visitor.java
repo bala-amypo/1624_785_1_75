@@ -1,58 +1,77 @@
 package com.example.demo.model;
 import jakarta.persistence.Entity;
+import java.time.LocalDateTime;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import java.util.LocalDateTime;
-import jakarta.persistence .PrePersist;
+import 
 @Entity
-public class Visitor{
+public class Visitor {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String fullName;
     private String email;
     private String phone;
     private String idProof;
     private LocalDateTime createdAt;
-    @PrePersist
-    void validateAndCreate(){
-      if(phone==null || phone.isEmpty()){
-        throw new RunTimeException("phone required");
-      }
-      this.createdAt = LocalDateTime.now();
+
+    public Visitor() {
     }
-    public Long getId(){
+
+    public Visitor(String fullName, String phone, String idProof, String email) {
+        this.fullName = fullName;
+        this.phone = phone;
+        this.idProof = idProof;
+        this.email = email;
+    }
+
+    @PrePersist
+    void validate() {
+        if (fullName == null || phone == null || idProof == null) {
+            throw new RuntimeException("phone required");
+        }
+        createdAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
         return id;
     }
-    public void setId(Long id){
-        this.id=id;
-    }
-    public String getFullName(){
+
+    public String getFullName() {
         return fullName;
     }
-    public void setFullName(String fullName){
-        this.fullName=fullName;
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public void setEmail(String email){
-        this.email=email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public String getPhone(){
+
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(String phone){
-        this.phone=phone;
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-    public String getIdProof(){
+
+    public String getIdProof() {
         return idProof;
     }
-    public void setIdProof(String idProof){
-        this.idProof=idProof;
+
+    public void setIdProof(String idProof) {
+        this.idProof = idProof;
     }
-    public LocalDateTime getCreatedAt(){
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 }
