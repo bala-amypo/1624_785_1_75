@@ -21,5 +21,14 @@ public class VisitLog{
         }
         entryTime = LocalDateTime.now();
       }
-      
+      public Long getId(){
+        return id;
+      }
+      public Visitor getVisitor(){
+        return Visitor;
+      }
+      public void setVisitor(Visitor visitor){
+        this.visitor=visitor;
+      }
+      public String getPurpose()
 }
