@@ -1,5 +1,4 @@
-import org.springframework.stereotype.Service;
-@Service
+package com.example.demo.service;
 public class UserService{
     
 }
