@@ -6,5 +6,6 @@ import jakarta.perisitence.Id;
 import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
 public class VisitLog{
-
+@Id
+@GeneratedValue
 }
