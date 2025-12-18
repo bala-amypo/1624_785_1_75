@@ -1,32 +1,30 @@
 package com.example.demo.model;
-
-import jakarta.persistence.*en;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
+import jakarta.persistence.PrePersist;
+import jakarta.persiistence.Column;
 @Entity
 public class RiskRule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true)
     private String ruleName;
-
     private String ruleType;
     private Integer threshold;
     private Integer scoreImpact;
     private LocalDateTime createdAt;
-
     public RiskRule() {
     }
-
     public RiskRule(String ruleName, String ruleType, Integer threshold, Integer scoreImpact) {
         this.ruleName = ruleName;
         this.ruleType = ruleType;
         this.threshold = threshold;
         this.scoreImpact = scoreImpact;
     }
-
     @PrePersist
     void validate() {
         if (threshold < 0 || scoreImpact < 0) {
@@ -34,23 +32,18 @@ public class RiskRule {
         }
         createdAt = LocalDateTime.now();
     }
-
     public Long getId() {
         return id;
     }
-
     public String getRuleName() {
         return ruleName;
     }
-
     public String getRuleType() {
         return ruleType;
     }
-
     public Integer getThreshold() {
         return threshold;
     }
-
     public Integer getScoreImpact() {
         return scoreImpact;
     }
