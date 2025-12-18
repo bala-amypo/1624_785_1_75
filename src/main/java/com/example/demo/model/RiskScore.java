@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GeneratedType;
 import jakarta.perisitence.Id;
 import jakarta.persistence.PrePersist;
+@Entity
 public class RiskScore{
-    
+    @Id
+    @GeneratedValue
 }
