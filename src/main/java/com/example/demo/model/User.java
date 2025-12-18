@@ -34,11 +34,9 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
     public Set<String> getRole() {
         return role;
     }
-
     public void setRole(Set<String> role) {
         this.role = role;
     }
