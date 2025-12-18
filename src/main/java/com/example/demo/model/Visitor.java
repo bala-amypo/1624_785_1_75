@@ -9,6 +9,7 @@ public class Visitor{
     private String phone;
     private String idProof;
     private LocalDateTime createdAt;
-
+    @PrePersist
+    void 
 
 }
