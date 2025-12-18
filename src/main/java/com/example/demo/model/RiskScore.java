@@ -15,5 +15,10 @@ public class RiskScore{
   private String totalScore;
   private LocalDateTime evaluvatedAt;
   @PrePersist
-  void cal
+  void calculateRisk(){
+    if(totalScore < 0){
+        throw new RuntimeException("Invalid score");
+    }
+    
+  }
 }
