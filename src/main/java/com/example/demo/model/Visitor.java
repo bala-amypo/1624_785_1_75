@@ -52,5 +52,7 @@ public class Visitor{
     public void setIdProof(String idProof){
         this.idProof=idProof;
     }
-    public 
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
 }
