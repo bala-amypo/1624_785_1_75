@@ -10,6 +10,10 @@ public class VisitLog{
       private String location;
       @PrePersist
       void validate(){
-        if(purpose)
+        if(purpose==null || location==null){
+            throw new RunTimeException("purpose and location required");
+        }
+        entryTime = LocalDateTime.now();
       }
+      
 }
