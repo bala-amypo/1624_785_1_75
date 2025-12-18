@@ -3,6 +3,7 @@ public class RiskLevelUtils{
    public class String determineRiskLevel(int score){
     if(Score>=0 || <=19)return "LOW";
     if(Score>=20 || Score<=49) "MEDIUM";
-    if(Score>=50 )
+    if(Score>=50 || Score<=79)"HIGH";
+      return "CRITICAL";
    }
 }
