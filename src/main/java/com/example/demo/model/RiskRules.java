@@ -47,7 +47,6 @@ public class RiskRule {
     public Integer getScoreImpact() {
         return scoreImpact;
     }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
