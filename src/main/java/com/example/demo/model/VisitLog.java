@@ -21,5 +21,5 @@ public class VisitLog{
         }
         entryTime = LocalDateTime.now();
       }
-
+      
 }
