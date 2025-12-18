@@ -50,11 +50,9 @@ public class VisitLog {
     public void setExitTime(LocalDateTime exitTime) {
         this.exitTime = exitTime;
     }
-
     public String getPurpose() {
         return purpose;
     }
-
     public String getLocation() {
         return location;
     }
