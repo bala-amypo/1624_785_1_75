@@ -30,5 +30,17 @@ public class VisitLog{
       public void setVisitor(Visitor visitor){
         this.visitor=visitor;
       }
-      public String getPurpose()
+      public String getPurpose(){
+        return purpose;
+      }
+      public void setPurpose(String purpose){
+        this.purpose=purpose;
+      }
+      public String getLocation(){
+         return location;
+      }
+      public void setLocation(String location){
+        this.location=location;
+      }
+      public LocalDateTime
 }
