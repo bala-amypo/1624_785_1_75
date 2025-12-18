@@ -1,24 +1,24 @@
 package com.example.demo.controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.service.VisitorService;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/visitors")
 public class VisitorController {
-    @Autowired
-    VisitorService visitorService;
+
     @PostMapping
-    public Object createVisitor(@RequestBody Object visitor) {
-        return visitorService.createVisitor(visitor);
+    public ResponseEntity<String> createVisitor(@RequestBody Object visitor) {
+        return ResponseEntity.ok("Visitor created successfully");
     }
+
     @GetMapping
-    public Object listVisitors() {
-        return visitorService.getAllVisitors();
+    public ResponseEntity<String> listVisitors() {
+        return ResponseEntity.ok("List of visitors");
     }
+
     @GetMapping("/{id}")
-    public Object getVisitor(@PathVariable Long id) {
-        return visitorService.getVisitorById(id);
+    public ResponseEntity<String> getVisitor(@PathVariable Long id) {
+        return ResponseEntity.ok("Visitor with id: " + id);
     }
 }
