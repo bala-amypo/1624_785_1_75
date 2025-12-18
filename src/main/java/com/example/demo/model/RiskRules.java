@@ -23,4 +23,5 @@ public class Riskrules{
     }
     createdAt = LocalDateTime.now();
    }
+   
 }

@@ -42,5 +42,13 @@ public class VisitLog{
       public void setLocation(String location){
         this.location=location;
       }
-      public LocalDateTime
+      public LocalDateTime getEntryTime(){
+        return entryTime;
+      }
+      public LocalDateTime getExitTime(){
+        return exitTime;
+      }
+      public void setExitTime(LocalDateTime exitTime){
+        this.exitTime=exitTime;
+      }
 }
