@@ -19,7 +19,7 @@ public class RiskRulesServiceImpl implements RiskRulesService {
         return riskRulesRepository.findAll();
     }
     @Override
-    public RiskRule getRule(Long id) {
-        return riskRuleRepository.findById(id).orElse(null);
+    public RiskRules getRule(Long id) {
+        return riskRulesRepository.findById(id).orElse(null);
     }
 }
