@@ -1,5 +1,5 @@
 package com.example.service.impl;
-import com.example.entity.User;
+import com.example.model.User;
 import com.example.payload.AuthRequest;
 import com.example.payload.AuthResponse;
 import com.example.repository.UserRepository;

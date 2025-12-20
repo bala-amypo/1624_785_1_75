@@ -1,5 +1,5 @@
 package com.example.service.Impl;
-import com.example.entity.Visitor;
+import com.example.model.Visitor;
 import com.example.repository.VisitorRepository;
 import com.example.service.VisitorService;
 import org.springframework.stereotype.Service;

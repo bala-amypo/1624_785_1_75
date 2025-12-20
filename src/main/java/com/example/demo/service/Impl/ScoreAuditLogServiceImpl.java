@@ -1,7 +1,7 @@
 package com.example.service.Impl;
-import com.example.entity.ScoreAuditLog;
-import com.example.entity.RiskRule;
-import com.example.entity.Visitor;
+import com.example.model.ScoreAuditLog;
+import com.example.model.RiskRule;
+import com.example.model.Visitor;
 import com.example.repository.ScoreAuditLogRepository;
 import com.example.repository.RiskRuleRepository;
 import com.example.repository.VisitorRepository;
