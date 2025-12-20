@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.User;
+import com.example.demo.model.User;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.entity.Visitor;
+import com.example.demo.model.Visitor;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.VisitorService;
