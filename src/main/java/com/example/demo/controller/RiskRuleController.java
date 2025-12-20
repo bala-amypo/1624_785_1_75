@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/risk-rules")
-public class RiskRulesController {
+public class RiskRuleController {
     @PostMapping
     public ResponseEntity<String> createRule(@RequestBody Object rule) {
         return ResponseEntity.ok("Risk rule created");
