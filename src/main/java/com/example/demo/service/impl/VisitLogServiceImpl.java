@@ -1,4 +1,4 @@
-package com.example.service.impl;
+package com.example.demo.service.impl;
 import com.example.demo.model.VisitLog;
 import com.example.demo.model.Visitor;
 import com.example.demo.repository.VisitLogRepository;
@@ -10,7 +10,7 @@ import java.util.List;
 public class VisitLogServiceImpl implements VisitLogService {
     private final VisitLogRepository visitLogRepository;
     private final VisitorRepository visitorRepository;
-    public VisitLogServiceImpl(VisitLogRepository visitLogRepository,VisitorRepository visitorRepository) {
+    public VisitLogServiceImpl(VisitLogRepository visitLogRepository, VisitorRepository visitorRepository) {
         this.visitLogRepository = visitLogRepository;
         this.visitorRepository = visitorRepository;
     }
@@ -20,7 +20,7 @@ public class VisitLogServiceImpl implements VisitLogService {
         log.setVisitor(visitor);
         return visitLogRepository.save(log);
     }
-   @Override
+    @Override
     public VisitLog getLog(Long id) {
         return visitLogRepository.findById(id).orElse(null);
     }
