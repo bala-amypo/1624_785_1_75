@@ -1,27 +1,32 @@
-package com.example.demo.service.impl;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-import com.example.demo.exception.ResourceNotFoundException;
-import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
-    public UserServiceImpl(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public User register(User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
     @Override
     public User login(User request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        if (!request.getPassword().equals(user.getPassword())) {
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-
         return user;
     }
 
@@ -33,6 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }
