@@ -1,11 +1,11 @@
 package com.example.service.impl;
-import com.example.demo.model.RiskRules;
-import com.example.demo.repository.RiskRulesRepository;
-import com.example.demo.service.RiskRulesService;
+import com.example.demo.model.RiskRule;
+import com.example.demo.repository.RiskRuleRepository;
+import com.example.demo.service.RiskRuleService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
-public class RiskRulesServiceImpl implements RiskRulesService {
+public class RiskRuleServiceImpl implements RiskRulesService {
     private final RiskRulesRepository riskRulesRepository;
     public RiskRulesServiceImpl(RiskRulesRepository riskRulesRepository) {
         this.riskRulesRepository = riskRulesRepository;
