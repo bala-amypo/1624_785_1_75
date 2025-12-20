@@ -1,8 +1,8 @@
 package com.example.service.impl;
 import com.example.demo.model.VisitLog;
 import com.example.demo.model.Visitor;
-import com.example.repository.VisitLogRepository;
-import com.example.repository.VisitorRepository;
+import com.example.demo.repository.VisitLogRepository;
+import com.example.demo.repository.VisitorRepository;
 import com.example.service.VisitLogService;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -2,10 +2,10 @@ package com.example.service.impl;
 import com.example.demo.model.ScoreAuditLog;
 import com.example.demo.model.RiskRule;
 import com.example.demo.model.Visitor;
-import com.example.repository.ScoreAuditLogRepository;
-import com.example.repository.RiskRuleRepository;
-import com.example.repository.VisitorRepository;
-import com.example.service.ScoreAuditLogService;
+import com.example.demo.repository.ScoreAuditLogRepository;
+import com.example.demo.repository.RiskRuleRepository;
+import com.example.demo.repository.VisitorRepository;
+import com.example.demo.service.ScoreAuditLogService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
