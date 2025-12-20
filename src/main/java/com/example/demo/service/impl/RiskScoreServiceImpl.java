@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
     private final RiskScoreRepository riskScoreRepository;
-    private final RiskRuleRepository riskRulesRepository;
+    private final RiskRulesRepository riskRulesRepository;
     private final VisitorRepository visitorRepository;
-    public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,RiskRulesRepository riskRuleRepository,VisitorRepository visitorRepository) {
+    public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,RiskRulesRepository riskRulesRepository,VisitorRepository visitorRepository) {
         this.riskScoreRepository = riskScoreRepository;
         this.riskRulesRepository = riskRulesRepository;
         this.visitorRepository = visitorRepository;
