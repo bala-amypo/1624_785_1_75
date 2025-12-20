@@ -1,7 +1,5 @@
 package com.example.service.impl;
 import com.example.demo.model.User;
-import com.example.payload.AuthRequest;
-import com.example.payload.AuthResponse;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import org.springframework.stereotype.Service;
