@@ -21,7 +21,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
     @Override
     public RiskScore evaluateVisitor(Long visitorId) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        List<RiskRules> rules = riskRuleRepository.findAll();
+        List<RiskRules> rules = riskRulesRepository.findAll();
         int totalScore = 0;
         for (RiskRules rule : rules) {
             totalScore += rule.getScore();
