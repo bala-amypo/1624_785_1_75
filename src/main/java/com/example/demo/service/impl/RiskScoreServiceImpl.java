@@ -1,5 +1,5 @@
 package com.example.service.impl;
-import com.example.demo.model.RiskRule;
+import com.example.demo.model.RiskRules;
 import com.example.demo.model.RiskScore;
 import com.example.demo.model.Visitor;
 import com.example.demo.repository.RiskRulesRepository;
@@ -11,19 +11,19 @@ import java.util.List;
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
     private final RiskScoreRepository riskScoreRepository;
-    private final RiskRuleRepository riskRuleRepository;
+    private final RiskRuleRepository riskRulesRepository;
     private final VisitorRepository visitorRepository;
-    public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,RiskRuleRepository riskRuleRepository,VisitorRepository visitorRepository) {
+    public RiskScoreServiceImpl(RiskScoreRepository riskScoreRepository,RiskRulesRepository riskRuleRepository,VisitorRepository visitorRepository) {
         this.riskScoreRepository = riskScoreRepository;
-        this.riskRuleRepository = riskRuleRepository;
+        this.riskRulesRepository = riskRulesRepository;
         this.visitorRepository = visitorRepository;
     }
     @Override
     public RiskScore evaluateVisitor(Long visitorId) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        List<RiskRule> rules = riskRuleRepository.findAll();
+        List<RiskRules> rules = riskRuleRepository.findAll();
         int totalScore = 0;
-        for (RiskRule rule : rules) {
+        for (RiskRules rule : rules) {
             totalScore += rule.getScore();
         }
         RiskScore riskScore = new RiskScore();
