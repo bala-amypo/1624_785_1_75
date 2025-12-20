@@ -1,5 +1,5 @@
 package com.example.service.Impl;
-import com.example.model.RiskRules;
+import com.example.demo.model.RiskRules;
 import com.example.repository.RiskRulesRepository;
 import com.example.service.RiskRulesService;
 import org.springframework.stereotype.Service;
