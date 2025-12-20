@@ -1,4 +1,4 @@
-package com.example.service.impl;
+package com.example.service.Impl;
 import com.example.entity.RiskRule;
 import com.example.repository.RiskRuleRepository;
 import com.example.service.RiskRuleService;
