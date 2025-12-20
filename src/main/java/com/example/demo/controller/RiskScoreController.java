@@ -1,19 +1,31 @@
 package com.example.demo.controller;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.demo.model.RiskScore;
+import com.example.demo.service.RiskScoreService;
 @RestController
 @RequestMapping("/api/risk-scores")
 public class RiskScoreController {
-    @PostMapping("/evaluate/{visitorId}")
-    public ResponseEntity<String> evaluateVisitor(@PathVariable Long visitorId) {
-        return ResponseEntity.ok("Risk score evaluated for visitor " + visitorId);
+    private final RiskScoreService service;
+    public RiskScoreController(RiskScoreService service) {
+        this.service = service;
     }
-    @GetMapping("/{visitorId}")
-    public ResponseEntity<String> getScore(@PathVariable Long visitorId) {
-        return ResponseEntity.ok("Risk score for visitor " + visitorId);
+    @PostMapping("/evaluate/{visitorId}")
+    public RiskScore evaluateVisitor(
+            @PathVariable Long visitorId,
+            @RequestParam Integer totalScore) {
+        return service.evaluateVisitor(visitorId, totalScore);
+    }
+    @GetMapping("/{id}")
+    public RiskScore getRiskScore(@PathVariable Long id) {
+        return service.getRiskScore(id);
     }
     @GetMapping
-    public ResponseEntity<String> listScores() {
-        return ResponseEntity.ok("List of all risk scores");
+    public List<RiskScore> getAllRiskScores() {
+        return service.getAllRiskScores();
+    }
+    @DeleteMapping("/{id}")
+    public void deleteRiskScore(@PathVariable Long id) {
+        service.deleteRiskScore(id);
     }
 }
