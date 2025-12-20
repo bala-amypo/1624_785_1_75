@@ -23,7 +23,8 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
         RiskRule rule = riskRuleRepository.findById(ruleId).orElse(null);
         log.setVisitor(visitor);
-        log.setRiskRule(rule);
+        // log.setRiskRule(rule);
+        log.setAppliedRule(rule);
         return auditLogRepository.save(log);
     }
     @Override
