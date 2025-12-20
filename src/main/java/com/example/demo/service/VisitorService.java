@@ -4,7 +4,7 @@ import java.util.List;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.entity.Visitor;
+import com.example.demo.model.Visitor;
 
 public interface VisitorService {
 
