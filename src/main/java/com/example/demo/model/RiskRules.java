@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RiskRule {
+public class RiskRules {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
