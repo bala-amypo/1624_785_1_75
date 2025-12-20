@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.User;
-import com.example.demo.payload.AuthRequest;
-import com.example.demo.payload.AuthResponse;
-import com.example.demo.payload.RegisterRequest;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterRequest;
 
 public interface UserService {
 
