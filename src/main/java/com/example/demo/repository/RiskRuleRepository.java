@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.RiskRule;
 
 public interface RiskRuleRepository extends JpaRepository<RiskRule, Long> {
+
+    boolean existsByRuleName(String ruleName);
 }
