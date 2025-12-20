@@ -54,4 +54,5 @@ class CustomUserDetailsService implements UserDetailsService {
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
 }
+}
 
