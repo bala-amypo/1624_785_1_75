@@ -1,6 +1,6 @@
 package com.example.service.Impl;
-import com.example.model.VisitLog;
-import com.example.model.Visitor;
+import com.example.demo.model.VisitLog;
+import com.example.demo.model.Visitor;
 import com.example.repository.VisitLogRepository;
 import com.example.repository.VisitorRepository;
 import com.example.service.VisitLogService;
