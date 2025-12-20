@@ -1,44 +1,68 @@
+package com.example.demo.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.User;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.payload.AuthRequest;
+import com.example.demo.payload.AuthResponse;
+import com.example.demo.payload.RegisterRequest;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtTokenProvider;
+import com.example.demo.service.UserService;
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public User register(User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists");
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User register(RegisterRequest request) {
+
+        // ✅ Check for duplicate email
+        userRepository.findByEmail(request.getEmail()).ifPresent(user -> {
+            throw new BadRequestException("Email already exists");
+        });
+
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setName(request.getName());
+
         return userRepository.save(user);
     }
 
     @Override
-    public User login(User request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    public AuthResponse login(AuthRequest request) {
 
+        // ✅ Fetch user by email
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new BadRequestException("Invalid credentials"));
+
+        // ✅ Validate password
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new BadRequestException("Invalid credentials");
         }
-        return user;
+
+        // ✅ Generate JWT token
+        String token = jwtTokenProvider.generateToken(user.getEmail());
+
+        // ✅ Return AuthResponse
+        return new AuthResponse(token, user);
     }
 
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-    }
-
-    @Override
-    public User getUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() -> new BadRequestException("User not found"));
     }
 }

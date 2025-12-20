@@ -1,23 +1,15 @@
 package com.example.demo.service;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import org.springframework.stereotype.Service;
-@Service
-public class UserService {
-    private final UserRepository repo;
-    public UserService(UserRepository repo) {
-        this.repo = repo;
-    }
 
-    public User register(User user) {
-        return repo.save(user);
-    }
+import com.example.demo.entity.User;
+import com.example.demo.payload.AuthRequest;
+import com.example.demo.payload.AuthResponse;
+import com.example.demo.payload.RegisterRequest;
 
-    public User getUser(Long id) {
-        return repo.findById(id).orElse(null);
-    }
+public interface UserService {
 
-    public User getByEmail(String email) {
-        return repo.findByEmail(email).orElse(null);
-    }
+    User register(RegisterRequest request);
+
+    AuthResponse login(AuthRequest request);
+
+    User getByEmail(String email);
 }
