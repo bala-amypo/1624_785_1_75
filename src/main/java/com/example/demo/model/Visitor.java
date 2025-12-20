@@ -7,75 +7,75 @@ import java.time.LocalDateTime;
 @Table(name = "visitors")
 public class Visitor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private Long id;
 
-    @Column(nullable = false)
-    private String fullName;
+    // @Column(nullable = false)
+    // private String fullName;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    // @Column(nullable = false, unique = true)
+    // private String email;
 
-    private String phone;
+    // private String phone;
 
-    @Column(name = "id_proof")
-    private String idProof;
+    // @Column(name = "id_proof")
+    // private String idProof;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
+    // @Column(nullable = false)
+    // private LocalDateTime createdAt;
 
-    // Constructors
-    public Visitor() {
-        this.createdAt = LocalDateTime.now();
-    }
+    // // Constructors
+    // public Visitor() {
+    //     this.createdAt = LocalDateTime.now();
+    // }
 
-    public Visitor(String fullName, String email, String phone, String idProof) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.idProof = idProof;
-        this.createdAt = LocalDateTime.now();
-    }
+    // public Visitor(String fullName, String email, String phone, String idProof) {
+    //     this.fullName = fullName;
+    //     this.email = email;
+    //     this.phone = phone;
+    //     this.idProof = idProof;
+    //     this.createdAt = LocalDateTime.now();
+    // }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    // // Getters and Setters
+    // public Long getId() {
+    //     return id;
+    // }
 
-    public String getFullName() {
-        return fullName;
-    }
+    // public String getFullName() {
+    //     return fullName;
+    // }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    // public void setFullName(String fullName) {
+    //     this.fullName = fullName;
+    // }
 
-    public String getEmail() {
-        return email;
-    }
+    // public String getEmail() {
+    //     return email;
+    // }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    // public void setEmail(String email) {
+    //     this.email = email;
+    // }
 
-    public String getPhone() {
-        return phone;
-    }
+    // public String getPhone() {
+    //     return phone;
+    // }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    // public void setPhone(String phone) {
+    //     this.phone = phone;
+    // }
 
-    public String getIdProof() {
-        return idProof;
-    }
+    // public String getIdProof() {
+    //     return idProof;
+    // }
 
-    public void setIdProof(String idProof) {
-        this.idProof = idProof;
-    }
+    // public void setIdProof(String idProof) {
+    //     this.idProof = idProof;
+    // }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    // public LocalDateTime getCreatedAt() {
+    //     return createdAt;
+    // }
 }
