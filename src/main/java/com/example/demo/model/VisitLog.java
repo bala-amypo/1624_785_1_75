@@ -1,42 +1,81 @@
-package com.example.demo.model;
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "visit_logs")
 public class VisitLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "visitor_id", nullable = false, unique = true)
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
+
+    @Column(nullable = false)
     private LocalDateTime entryTime;
+
     private LocalDateTime exitTime;
+
+    @Column(nullable = false)
     private String purpose;
+
     private String location;
-    @PrePersist
-    public void validate() {
-        if (purpose == null || location == null) {
-            throw new RuntimeException("Missing purpose or location");
-        }
-        this.entryTime = LocalDateTime.now();
+
+    // Constructors
+    public VisitLog() {
     }
-    @PreUpdate
-    public void validateExit() {
-        if (exitTime != null && entryTime != null && exitTime.isBefore(entryTime)) {
-            throw new RuntimeException("exitTime must be after entryTime");
-        }
+
+    public VisitLog(Visitor visitor, LocalDateTime entryTime, String purpose, String location) {
+        this.visitor = visitor;
+        this.entryTime = entryTime;
+        this.purpose = purpose;
+        this.location = location;
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public Visitor getVisitor() {
+        return visitor;
+    }
+
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public LocalDateTime getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(LocalDateTime entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public LocalDateTime getExitTime() {
+        return exitTime;
+    }
+
+    public void setExitTime(LocalDateTime exitTime) {
+        this.exitTime = exitTime;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
