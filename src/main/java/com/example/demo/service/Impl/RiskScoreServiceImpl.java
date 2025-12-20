@@ -1,7 +1,7 @@
 package com.example.service.Impl;
-import com.example.model.RiskRule;
-import com.example.model.RiskScore;
-import com.example.model.Visitor;
+import com.example.demo.model.RiskRule;
+import com.example.demo.model.RiskScore;
+import com.example.demo.model.Visitor;
 import com.example.repository.RiskRuleRepository;
 import com.example.repository.RiskScoreRepository;
 import com.example.repository.VisitorRepository;
