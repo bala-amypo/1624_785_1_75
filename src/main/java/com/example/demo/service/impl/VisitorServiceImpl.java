@@ -1,7 +1,7 @@
-package com.example.service.Impl;
+package com.example.service.impl;
 import com.example.demo.model.Visitor;
-import com.example.repository.VisitorRepository;
-import com.example.service.VisitorService;
+import com.example.demo.repository.VisitorRepository;
+import com.example.demo.service.VisitorService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
