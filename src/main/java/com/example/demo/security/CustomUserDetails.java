@@ -45,13 +45,13 @@ class CustomUserDetailsService implements UserDetailsService {
         );
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<String> roles) {
-        if (roles == null) {
-            return List.of();
-        }
-
-        return roles.stream();
-                roles.map(SimpleGrantedAuthority::new);
-                roles.collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<String> roles) {
+    if (roles == null || roles.isEmpty()) {
+        return List.of();
     }
+
+    return roles.stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
 }
+

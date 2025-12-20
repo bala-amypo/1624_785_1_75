@@ -79,4 +79,8 @@ public class RiskRule {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+    public int getScore() {
+    return threshold;
+}
+
 }
