@@ -4,7 +4,6 @@ package com.example.demo.security;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +38,7 @@ class CustomUserDetailsService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream()
+        return roles.stream();
             .map(role -> new SimpleGrantedAuthority(role.name()))
             .collect(Collectors.toList());
     }
