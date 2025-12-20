@@ -1,4 +1,4 @@
-package com.example.service.Impl;
+package com.example.service.impl;
 import com.example.demo.model.VisitLog;
 import com.example.demo.model.Visitor;
 import com.example.repository.VisitLogRepository;

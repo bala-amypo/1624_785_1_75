@@ -1,4 +1,4 @@
-package com.example.service.Impl;
+package com.example.service.impl;
 import com.example.demo.model.ScoreAuditLog;
 import com.example.demo.model.RiskRule;
 import com.example.demo.model.Visitor;
