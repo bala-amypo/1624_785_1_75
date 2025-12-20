@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 @Entity
 @Data
 @NoArgsConstructor
