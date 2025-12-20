@@ -1,35 +1,70 @@
-package com.example.demo.model;
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "risk_scores")
 public class RiskScore {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "visitor_id", nullable = false)
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "visitor_id", nullable = false, unique = true)
     private Visitor visitor;
+
+    @Column(nullable = false)
     private Integer totalScore;
-    private String riskLevel;
+
+    @Column(nullable = false)
+    private String riskLevel; 
+    // LOW, MEDIUM, HIGH (example values)
+
+    @Column(nullable = false)
     private LocalDateTime evaluatedAt;
-    @PrePersist
-    public void calculateRisk() {
-        if (totalScore != null && totalScore < 0) {
-            throw new RuntimeException("Invalid score");
-        }
-        this.riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
+
+    // Constructors
+    public RiskScore() {
         this.evaluatedAt = LocalDateTime.now();
+    }
+
+    public RiskScore(Visitor visitor, Integer totalScore, String riskLevel) {
+        this.visitor = visitor;
+        this.totalScore = totalScore;
+        this.riskLevel = riskLevel;
+        this.evaluatedAt = LocalDateTime.now();
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public Visitor getVisitor() {
+        return visitor;
+    }
+
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public Integer getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
+
+    public LocalDateTime getEvaluatedAt() {
+        return evaluatedAt;
     }
 }
