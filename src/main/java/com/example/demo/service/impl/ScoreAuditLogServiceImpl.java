@@ -1,9 +1,9 @@
 package com.example.demo.service.impl;
 import com.example.demo.model.ScoreAuditLog;
-import com.example.demo.model.RiskRules;
+import com.example.demo.model.RiskRule;
 import com.example.demo.model.Visitor;
 import com.example.demo.repository.ScoreAuditLogRepository;
-import com.example.demo.repository.RiskRulesRepository;
+import com.example.demo.repository.RiskRuleRepository;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.ScoreAuditLogService;
 import org.springframework.stereotype.Service;
@@ -13,17 +13,17 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
     private final ScoreAuditLogRepository auditLogRepository;
     private final VisitorRepository visitorRepository;
     private final RiskRulesRepository riskRulesRepository;
-    public ScoreAuditLogServiceImpl(ScoreAuditLogRepository auditLogRepository,VisitorRepository visitorRepository,RiskRulesRepository riskRulesRepository) {
+    public ScoreAuditLogServiceImpl(ScoreAuditLogRepository auditLogRepository,VisitorRepository visitorRepository,RiskRuleRepository riskRuleRepository) {
         this.auditLogRepository = auditLogRepository;
         this.visitorRepository = visitorRepository;
-        this.riskRulesRepository = riskRulesRepository;
+        this.riskRuleRepository = riskRuleRepository;
     }
     @Override
     public ScoreAuditLog logScoreChange(Long visitorId, Long ruleId, ScoreAuditLog log) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        RiskRules rule = riskRulesRepository.findById(ruleId).orElse(null);
+        RiskRule rule = riskRuleRepository.findById(ruleId).orElse(null);
         log.setVisitor(visitor);
-        log.setRiskRules(rule);
+        log.setRiskRule(rule);
         // log.setAppliedRule(rule);
         return auditLogRepository.save(log);
     }
