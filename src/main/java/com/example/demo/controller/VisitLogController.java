@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.entity.VisitLog;
+import com.example.demo.model.VisitLog;
 import com.example.demo.service.VisitLogService;
 
 @RestController
