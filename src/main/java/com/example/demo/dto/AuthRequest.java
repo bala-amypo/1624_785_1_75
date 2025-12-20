@@ -1,20 +1,21 @@
 package com.example.demo.dto;
 
+/**
+ * DTO used for login requests.
+ * Contains email and password fields.
+ */
 public class AuthRequest {
 
     private String email;
     private String password;
 
-    // Default constructor
     public AuthRequest() {}
 
-    // Constructor with fields
     public AuthRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    // Getters and Setters
     public String getEmail() {
         return email;
     }
