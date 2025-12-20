@@ -1,24 +1,52 @@
 package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.Visitor;
+import com.example.demo.service.VisitorService;
+
 @RestController
 @RequestMapping("/api/visitors")
 public class VisitorController {
+
+    private final VisitorService visitorService;
+
+    // ✅ Constructor injection for test compatibility
+    public VisitorController(VisitorService visitorService) {
+        this.visitorService = visitorService;
+    }
+
+    // POST /api/visitors
     @PostMapping
-    public ResponseEntity<String> createVisitor(@RequestBody Object visitor) {
-        return ResponseEntity.ok("Visitor created successfully");
+    public ResponseEntity<?> createVisitor(@RequestBody Visitor visitor) {
+        try {
+            Visitor created = visitorService.createVisitor(visitor);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        } catch (Exception e) {
+            // Tests expect "phone required" message for missing phone
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
-    @GetMapping
-    public ResponseEntity<String> listVisitors() {
-        return ResponseEntity.ok("List of visitors");
-    }
+
+    // GET /api/visitors/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<String> getVisitor(@PathVariable Long id) {
-        return ResponseEntity.ok("Visitor with id: " + id);
+    public ResponseEntity<?> getVisitor(@PathVariable Long id) {
+        try {
+            Visitor visitor = visitorService.getVisitor(id);
+            return ResponseEntity.ok(visitor);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // GET /api/visitors
+    @GetMapping
+    public ResponseEntity<List<Visitor>> getAllVisitors() {
+        List<Visitor> visitors = visitorService.getAllVisitors();
+        return ResponseEntity.ok(visitors); // returns empty list if none
     }
 }
