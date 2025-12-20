@@ -3,7 +3,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/risk-rules")
-public class RiskRuleController {
+public class RiskRulesController {
     @PostMapping
     public ResponseEntity<String> createRule(@RequestBody Object rule) {
         return ResponseEntity.ok("Risk rule created");
