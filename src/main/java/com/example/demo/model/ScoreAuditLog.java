@@ -1,56 +1,34 @@
 package com.example.demo.model;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScoreAuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "risk_rule_id")
     private RiskRule appliedRule;
     private Integer scoreChange;
     private String reason;
     private LocalDateTime loggedAt;
-    public ScoreAuditLog() {
-    }
-    public ScoreAuditLog(Integer scoreChange, String reason) {
-        this.scoreChange = scoreChange;
-        this.reason = reason;
-    }
     @PrePersist
-    void validate() {
-        if (scoreChange < 0) {
+    public void validate() {
+        if (scoreChange != null && scoreChange < 0) {
             throw new RuntimeException("Invalid scoreChange");
         }
-        if (reason == null) {
+        if (reason == null || reason.isBlank()) {
             throw new RuntimeException("reason required");
         }
-        loggedAt = LocalDateTime.now();
-    }
-    public Long getId() {
-        return id;
-    }
-    public Visitor getVisitor() {
-        return visitor;
-    }
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
-    public RiskRule getAppliedRule() {
-        return appliedRule;
-    }
-    public void setAppliedRule(RiskRule appliedRule) {
-        this.appliedRule = appliedRule;
-    }
-    public Integer getScoreChange() {
-        return scoreChange;
-    }
-    public String getReason() {
-        return reason;
-    }
-    public LocalDateTime getLoggedAt() {
-        return loggedAt;
+        this.loggedAt = LocalDateTime.now();
     }
 }
