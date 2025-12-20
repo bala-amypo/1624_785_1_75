@@ -50,7 +50,7 @@ class CustomUserDetailsService implements UserDetailsService {
             return List.of();
         }
 
-        return roles.stream()
+        return roles.stream();
                 roles.map(SimpleGrantedAuthority::new);
                 roles.collect(Collectors.toList());
     }
