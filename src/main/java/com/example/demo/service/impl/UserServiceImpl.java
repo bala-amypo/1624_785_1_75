@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(RegisterRequest request) {
 
-        // ✅ Check for duplicate email
         userRepository.findByEmail(request.getEmail()).ifPresent(user -> {
             throw new BadRequestException("Email already exists");
         });
@@ -44,25 +43,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponse login(AuthRequest request) {
 
-        // ✅ Fetch user by email
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new BadRequestException("Invalid credentials"));
 
-        // ✅ Validate password
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadRequestException("Invalid credentials");
         }
 
-        // ✅ Generate JWT token
         String token = jwtTokenProvider.generateToken(user.getEmail());
 
-        // ✅ Return AuthResponse
         return new AuthResponse(
-        token,
-        user.getEmail(),
-        user.getRoles();
-);
-
+                token,
+                user.getEmail(),
+                user.getRoles()
+        );
     }
 
     @Override
