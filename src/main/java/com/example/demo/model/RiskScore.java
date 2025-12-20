@@ -1,50 +1,38 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
+
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RiskScore {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
+    @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
+
     private Integer totalScore;
+
     private String riskLevel;
+
     private LocalDateTime evaluatedAt;
-    public RiskScore() {
-    }
-    public RiskScore(Visitor visitor, Integer totalScore) {
-        this.visitor = visitor;
-        this.totalScore = totalScore;
-    }
+
     @PrePersist
-    void calculateRisk() {
-        if (totalScore < 0) {
+    public void calculateRisk() {
+        if (totalScore != null && totalScore < 0) {
             throw new RuntimeException("Invalid score");
         }
-        riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
-        evaluatedAt = LocalDateTime.now();
-    }
-    public Long getId() {
-        return id;
-    }
-    public Visitor getVisitor() {
-        return visitor;
-    }
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
-    public Integer getTotalScore() {
-        return totalScore;
-    }
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
-    }
-    public String getRiskLevel() {
-        return riskLevel;
-    }
-    public LocalDateTime getEvaluatedAt() {
-        return evaluatedAt;
+        this.riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
+        this.evaluatedAt = LocalDateTime.now();
     }
 }

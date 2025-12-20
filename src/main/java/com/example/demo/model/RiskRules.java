@@ -17,18 +17,12 @@ public class RiskRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String ruleName;
-
     private String ruleType;
-
     private Integer threshold;
-
     private Integer scoreImpact;
-
     private LocalDateTime createdAt;
-
     @PrePersist
     public void validateAndSetCreatedAt() {
         if (threshold != null && threshold < 0) {
