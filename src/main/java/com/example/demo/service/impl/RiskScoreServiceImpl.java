@@ -2,7 +2,7 @@ package com.example.service.impl;
 import com.example.demo.model.RiskRule;
 import com.example.demo.model.RiskScore;
 import com.example.demo.model.Visitor;
-import com.example.demo.repository.RiskRuleRepository;
+import com.example.demo.repository.RiskRulesRepository;
 import com.example.demo.repository.RiskScoreRepository;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.RiskScoreService;
