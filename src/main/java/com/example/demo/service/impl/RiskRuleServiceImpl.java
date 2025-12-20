@@ -5,21 +5,21 @@ import com.example.demo.service.RiskRuleService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
-public class RiskRuleServiceImpl implements RiskRulesService {
-    private final RiskRulesRepository riskRulesRepository;
-    public RiskRulesServiceImpl(RiskRulesRepository riskRulesRepository) {
-        this.riskRulesRepository = riskRulesRepository;
+public class RiskRuleServiceImpl implements RiskRuleService {
+    private final RiskRuleRepository riskRuleRepository;
+    public RiskRuleServiceImpl(RiskRuleRepository riskRuleRepository) {
+        this.riskRuleRepository = riskRuleRepository;
     }
     @Override
-    public RiskRules createRule(RiskRules rule) {
-        return riskRulesRepository.save(rule);
+    public RiskRule createRule(RiskRule rule) {
+        return riskRuleRepository.save(rule);
     }
     @Override
-    public List<RiskRules> getAllRules() {
-        return riskRulesRepository.findAll();
+    public List<RiskRule> getAllRule() {
+        return riskRuleRepository.findAll();
     }
     @Override
-    public RiskRules getRule(Long id) {
-        return riskRulesRepository.findById(id).orElse(null);
+    public RiskRule getRule(Long id) {
+        return riskRuleRepository.findById(id).orElse(null);
     }
 }
