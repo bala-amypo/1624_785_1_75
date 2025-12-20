@@ -82,4 +82,14 @@ public class ScoreAuditLog {
     public LocalDateTime getLoggedAt() {
         return loggedAt;
     }
+    private RiskRule rule;
+
+public RiskRule getRule() {
+    return rule;
+}
+
+public void setRule(RiskRule rule) {
+    this.rule = rule;
+}
+
 }
