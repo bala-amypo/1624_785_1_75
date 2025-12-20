@@ -1,9 +1,5 @@
-// CustomUserDetails.java
 package com.example.demo.security;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,11 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class CustomUserDetails { 
-    // your UserDetails logic if needed
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * This class is kept minimal to avoid conflicts.
+ * It is NOT used directly by Spring Security.
+ */
+public class CustomUserDetails {
+    // intentionally empty
 }
 
-// Make the service class NON-public
+/**
+ * NON-public service class (allowed in same file)
+ */
 class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -27,20 +33,25 @@ class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found: " + email));
 
         return new org.springframework.security.core.userdetails.User(
-            user.getEmail(),
-            user.getPassword(),
-            mapRolesToAuthorities(user.getRoles())
+                user.getEmail(),
+                user.getPassword(),
+                mapRolesToAuthorities(user.getRoles())
         );
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-            roles.stream();
-            roles.map(role -> new SimpleGrantedAuthority(role.name()));
-            roles.collect(Collectors.toList());
-            return roles;
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<String> roles) {
+        if (roles == null) {
+            return List.of();
+        }
+
+        return roles.stream()
+                roles.map(SimpleGrantedAuthority::new);
+                roles.collect(Collectors.toList());
     }
 }

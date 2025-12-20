@@ -16,7 +16,6 @@ import com.example.demo.repository.RiskScoreRepository;
 import com.example.demo.repository.VisitLogRepository;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.RiskScoreService;
-import com.example.demo.util.RiskLevelUtils;
 
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
