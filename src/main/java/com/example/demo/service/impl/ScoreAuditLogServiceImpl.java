@@ -16,12 +16,12 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
     public ScoreAuditLogServiceImpl(ScoreAuditLogRepository auditLogRepository,VisitorRepository visitorRepository,RiskRulesRepository riskRulesRepository) {
         this.auditLogRepository = auditLogRepository;
         this.visitorRepository = visitorRepository;
-        this.riskRuleRepository = riskRuleRepository;
+        this.riskRulesRepository = riskRulesRepository;
     }
     @Override
     public ScoreAuditLog logScoreChange(Long visitorId, Long ruleId, ScoreAuditLog log) {
         Visitor visitor = visitorRepository.findById(visitorId).orElse(null);
-        RiskRules rule = riskRuleRepository.findById(ruleId).orElse(null);
+        RiskRules rule = riskRulesRepository.findById(ruleId).orElse(null);
         log.setVisitor(visitor);
         log.setRiskRule(rule);
         // log.setAppliedRule(rule);
