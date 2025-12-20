@@ -1,8 +1,6 @@
 package com.example.demo.controller;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/api/visit-logs")
 public class VisitLogController {
