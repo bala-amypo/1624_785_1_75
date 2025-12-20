@@ -4,8 +4,6 @@ package com.example.demo.security;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;

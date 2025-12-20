@@ -1,9 +1,5 @@
 package com.example.demo.dto;
 
-/**
- * DTO used for user registration.
- * Contains email, password, and optional full name.
- */
 public class RegisterRequest {
 
     private String email;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.VisitLog;
+import com.example.demo.model.VisitLog;
 
 public interface VisitLogRepository extends JpaRepository<VisitLog, Long> {
 

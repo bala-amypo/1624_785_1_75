@@ -2,10 +2,6 @@ package com.example.demo.dto;
 
 import java.util.List;
 
-/**
- * DTO returned after successful login.
- * Contains JWT token, email, and user roles.
- */
 public class AuthResponse {
 
     private String token;
