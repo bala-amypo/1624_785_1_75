@@ -1,25 +1,43 @@
-package com.example.service.impl;
-import com.example.demo.model.Visitor;
+package com.example.demo.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.Visitor;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.VisitorService;
-import org.springframework.stereotype.Service;
-import java.util.List;
+
 @Service
 public class VisitorServiceImpl implements VisitorService {
-    private final VisitorRepository visitorRepository;
-    public VisitorServiceImpl(VisitorRepository visitorRepository) {
-        this.visitorRepository = visitorRepository;
-    }
+
+    @Autowired
+    private VisitorRepository visitorRepository;
+
     @Override
     public Visitor createVisitor(Visitor visitor) {
+
+        // ✅ REQUIRED VALIDATION
+        if (visitor.getPhone() == null || visitor.getPhone().trim().isEmpty()) {
+            throw new BadRequestException("phone required");
+        }
+
         return visitorRepository.save(visitor);
     }
+
     @Override
     public Visitor getVisitor(Long id) {
-        return visitorRepository.findById(id).orElse(null);
+        return visitorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Visitor not found"));
     }
+
     @Override
     public List<Visitor> getAllVisitors() {
-        return visitorRepository.findAll();
+
+        // ✅ NULL-SAFE: never return null
+        List<Visitor> visitors = visitorRepository.findAll();
+        return visitors; // returns empty list if no records
     }
 }
