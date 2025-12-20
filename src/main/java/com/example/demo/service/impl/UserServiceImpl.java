@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         return new AuthResponse(
         token,
         user.getEmail(),
-        user.getRoles()
+        user.getRoles();
 );
 
     }
