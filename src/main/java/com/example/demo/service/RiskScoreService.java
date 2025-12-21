@@ -1,16 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.RiskScore;
 import java.util.List;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.RiskScore;
 
 public interface RiskScoreService {
 
-    RiskScore evaluateVisitor(Long visitorId);
+    RiskScore evaluateRisk(Long visitorId);
 
-    RiskScore getScoreForVisitor(Long visitorId);
+    RiskScore getRiskScoreByVisitor(Long visitorId);
 
-    List<RiskScore> getAllScores();
+    List<RiskScore> getAllRiskScores();
 }
