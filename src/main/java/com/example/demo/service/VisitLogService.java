@@ -1,16 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.VisitLog;
 import java.util.List;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.VisitLog;
 
 public interface VisitLogService {
 
-    VisitLog createVisitLog(Long visitorId, VisitLog log);
+    VisitLog createVisitLog(Long visitorId, VisitLog visitLog);
 
-    VisitLog getLog(Long id);
+    VisitLog getVisitLogById(Long id);
 
     List<VisitLog> getLogsByVisitor(Long visitorId);
 }

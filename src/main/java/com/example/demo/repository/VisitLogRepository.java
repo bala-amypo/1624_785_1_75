@@ -1,12 +1,16 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.entity.VisitLog;
 
-import com.example.demo.model.VisitLog;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface VisitLogRepository extends JpaRepository<VisitLog, Long> {
 
     List<VisitLog> findByVisitorId(Long visitorId);
+
+    List<VisitLog> findByVisitorIdAndEntryTimeAfter(
+            Long visitorId, LocalDateTime time
+    );
 }
