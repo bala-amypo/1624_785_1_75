@@ -1,53 +1,33 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.RiskScore;
+import com.example.demo.entity.RiskScore;
 import com.example.demo.service.RiskScoreService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/risk-scores")
 public class RiskScoreController {
 
-    private final RiskScoreService riskScoreService;
+    private final RiskScoreService service;
 
-    // ✅ Constructor injection for test compatibility
-    public RiskScoreController(RiskScoreService riskScoreService) {
-        this.riskScoreService = riskScoreService;
+    public RiskScoreController(RiskScoreService service) {
+        this.service = service;
     }
 
-    // POST /api/risk-scores/evaluate/{visitorId}
     @PostMapping("/evaluate/{visitorId}")
-    public ResponseEntity<?> evaluateVisitor(@PathVariable Long visitorId) {
-        try {
-            RiskScore score = riskScoreService.evaluateVisitor(visitorId);
-            return ResponseEntity.status(HttpStatus.CREATED).body(score);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public RiskScore evaluateRisk(@PathVariable Long visitorId) {
+        return service.evaluateRisk(visitorId);
     }
 
-    // GET /api/risk-scores/{visitorId}
-    @GetMapping("/{visitorId}")
-    public ResponseEntity<?> getScoreForVisitor(@PathVariable Long visitorId) {
-        try {
-            RiskScore score = riskScoreService.getScoreForVisitor(visitorId);
-            return ResponseEntity.ok(score);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    @GetMapping("/visitor/{visitorId}")
+    public RiskScore getScoreByVisitor(@PathVariable Long visitorId) {
+        return service.getRiskScoreByVisitor(visitorId);
     }
 
-    // GET /api/risk-scores
     @GetMapping
-    public ResponseEntity<List<RiskScore>> getAllScores() {
-        List<RiskScore> scores = riskScoreService.getAllScores();
-        return ResponseEntity.ok(scores); // empty list handled by service
+    public List<RiskScore> getAllScores() {
+        return service.getAllRiskScores();
     }
 }
