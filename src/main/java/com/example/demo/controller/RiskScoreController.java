@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.entity.RiskScore;
+import com.example.demo.model.RiskScore;
 import com.example.demo.service.RiskScoreService;
 
 import org.springframework.web.bind.annotation.GetMapping;

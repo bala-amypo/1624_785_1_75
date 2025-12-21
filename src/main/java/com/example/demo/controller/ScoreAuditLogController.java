@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.entity.ScoreAuditLog;
+import com.example.demo.model.ScoreAuditLog;
 import com.example.demo.service.ScoreAuditLogService;
 
 import org.springframework.web.bind.annotation.GetMapping;

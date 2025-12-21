@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.entity.Visitor;
+import com.example.demo.model.Visitor;
 import com.example.demo.service.VisitorService;
 
 import org.springframework.web.bind.annotation.GetMapping;
