@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.entity.RiskRule;
+import com.example.demo.model.RiskRule;
 import com.example.demo.service.RiskRuleService;
 
 import org.springframework.web.bind.annotation.GetMapping;
