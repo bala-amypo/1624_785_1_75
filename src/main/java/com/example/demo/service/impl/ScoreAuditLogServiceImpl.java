@@ -31,16 +31,10 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
 
     @Override
     public ScoreAuditLog logScoreChange(Long visitorId, Long ruleId, ScoreAuditLog log) {
-
-        // ✅ Ensure visitor exists
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
-
-        // ✅ Ensure rule exists
         RiskRule rule = riskRuleRepository.findById(ruleId)
                 .orElseThrow(() -> new ResourceNotFoundException("RiskRule not found"));
-
-        // ✅ Validate reason
         if (log.getReason() == null || log.getReason().trim().isEmpty()) {
             throw new BadRequestException("reason required");
         }
@@ -53,7 +47,6 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
 
     @Override
     public List<ScoreAuditLog> getLogsByVisitor(Long visitorId) {
-        // ✅ Delegates to repository, returns empty list if none
         return scoreAuditLogRepository.findByVisitorId(visitorId);
     }
 

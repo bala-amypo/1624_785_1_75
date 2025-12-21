@@ -9,7 +9,5 @@ import com.example.demo.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    // Find user by email (used for login & duplicate registration check)
     Optional<User> findByEmail(String email);
 }

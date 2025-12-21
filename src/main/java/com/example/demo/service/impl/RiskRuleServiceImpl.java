@@ -20,8 +20,6 @@ public class RiskRuleServiceImpl implements RiskRuleService {
 
     @Override
     public RiskRule createRule(RiskRule rule) {
-
-        // ✅ REQUIRED VALIDATION
         if (riskRuleRepository.existsByRuleName(rule.getRuleName())) {
             throw new BadRequestException("Rule name must be unique");
         }
@@ -31,8 +29,6 @@ public class RiskRuleServiceImpl implements RiskRuleService {
 
     @Override
     public List<RiskRule> getAllRules() {
-
-        // ✅ NULL-SAFE: return empty list if no rules
         return riskRuleRepository.findAll();
     }
 
