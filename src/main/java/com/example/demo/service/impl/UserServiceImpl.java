@@ -1,67 +1,39 @@
 package com.example.demo.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.model.User;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
+import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository repository;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Override
-    public User register(RegisterRequest request) {
-
-        userRepository.findByEmail(request.getEmail()).ifPresent(user -> {
-            throw new BadRequestException("Email already exists");
-        });
-
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setName(request.getEmail());
-
-        return userRepository.save(user);
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public AuthResponse login(AuthRequest request) {
+    public User register(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return repository.save(user);
+    }
 
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new BadRequestException("Invalid credentials"));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadRequestException("Invalid credentials");
+    @Override
+    public User login(User user) {
+        User dbUser = repository.findByEmail(user.getEmail());
+        if (dbUser == null ||
+            !encoder.matches(user.getPassword(), dbUser.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
         }
-
-        String token = jwtTokenProvider.generateToken(user.getEmail());
-
-        return new AuthResponse(
-                token,
-                user.getEmail(),
-                user.getRoles()
-        );
+        return dbUser;
     }
 
     @Override
     public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new BadRequestException("User not found"));
+        return repository.findByEmail(email);
     }
 }

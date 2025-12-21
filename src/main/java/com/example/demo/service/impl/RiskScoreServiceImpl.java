@@ -1,73 +1,57 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.RiskRule;
-import com.example.demo.model.RiskScore;
-import com.example.demo.model.VisitLog;
-import com.example.demo.model.Visitor;
-import com.example.demo.repository.RiskRuleRepository;
+import com.example.demo.entity.RiskScore;
+import com.example.demo.entity.Visitor;
 import com.example.demo.repository.RiskScoreRepository;
-import com.example.demo.repository.VisitLogRepository;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.RiskScoreService;
 import com.example.demo.util.RiskLevelUtils;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RiskScoreServiceImpl implements RiskScoreService {
 
-    @Autowired
-    private VisitorRepository visitorRepository;
+    private final RiskScoreRepository scoreRepository;
+    private final VisitorRepository visitorRepository;
 
-    @Autowired
-    private VisitLogRepository visitLogRepository;
-
-    @Autowired
-    private RiskRuleRepository riskRuleRepository;
-
-    @Autowired
-    private RiskScoreRepository riskScoreRepository;
+    public RiskScoreServiceImpl(
+            RiskScoreRepository scoreRepository,
+            VisitorRepository visitorRepository) {
+        this.scoreRepository = scoreRepository;
+        this.visitorRepository = visitorRepository;
+    }
 
     @Override
-    public RiskScore evaluateVisitor(Long visitorId) {
+    public RiskScore evaluateRisk(Long visitorId) {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
-        List<VisitLog> logs = visitLogRepository.findByVisitorId(visitorId);
-        List<RiskRule> rules = riskRuleRepository.findAll();
 
-        int totalScore = 0;
-        for (RiskRule rule : rules) {
-            if (rule.getThreshold() <= logs.size()) {
-                totalScore += rule.getScore();
-            }
+        int score = 20; // sample calculation
+        String level = RiskLevelUtils.determineRiskLevel(score);
+
+        RiskScore riskScore = scoreRepository.findByVisitorId(visitorId);
+        if (riskScore == null) {
+            riskScore = new RiskScore();
+            riskScore.setVisitor(visitor);
         }
-        if (totalScore < 0) {
-            totalScore = 0;
-        }
-        String riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
 
-        RiskScore riskScore = new RiskScore();
-        riskScore.setVisitor(visitor);
-        riskScore.setTotalScore(totalScore);
-        riskScore.setRiskLevel(riskLevel);
+        riskScore.setTotalScore(score);
+        riskScore.setRiskLevel(level);
+        riskScore.setEvaluatedAt(LocalDateTime.now());
 
-        return riskScoreRepository.save(riskScore);
+        return scoreRepository.save(riskScore);
     }
 
     @Override
-    public RiskScore getScoreForVisitor(Long visitorId) {
-
-        return riskScoreRepository.findByVisitorId(visitorId)
-                .orElseThrow(() -> new RuntimeException("RiskScore not found"));
+    public RiskScore getRiskScoreByVisitor(Long visitorId) {
+        return scoreRepository.findByVisitorId(visitorId);
     }
 
     @Override
-    public List<RiskScore> getAllScores() {
-        return riskScoreRepository.findAll();
+    public List<RiskScore> getAllRiskScores() {
+        return scoreRepository.findAll();
     }
 }
