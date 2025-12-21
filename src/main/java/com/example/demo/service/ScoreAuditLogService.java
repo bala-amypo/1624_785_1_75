@@ -1,16 +1,13 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.ScoreAuditLog;
 import java.util.List;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.ScoreAuditLog;
 
 public interface ScoreAuditLogService {
 
-    ScoreAuditLog logScoreChange(Long visitorId, Long ruleId, ScoreAuditLog log);
+    ScoreAuditLog addAuditLog(Long visitorId, Long ruleId, ScoreAuditLog log);
 
-    List<ScoreAuditLog> getLogsByVisitor(Long visitorId);
+    ScoreAuditLog getAuditLogById(Long id);
 
-    ScoreAuditLog getLog(Long id);
+    List<ScoreAuditLog> getAuditLogsByVisitor(Long visitorId);
 }
