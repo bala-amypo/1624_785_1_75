@@ -10,14 +10,12 @@ import java.util.List;
 public class VisitLogServiceImpl implements VisitLogService {
     private final VisitLogRepository logRepository;
     private final VisitorRepository visitorRepository;
-
     public VisitLogServiceImpl(
             VisitLogRepository logRepository,
             VisitorRepository visitorRepository) {
         this.logRepository = logRepository;
         this.visitorRepository = visitorRepository;
     }
-
     @Override
     public VisitLog createVisitLog(Long visitorId, VisitLog visitLog) {
         Visitor visitor = visitorRepository.findById(visitorId)
@@ -26,13 +24,11 @@ public class VisitLogServiceImpl implements VisitLogService {
         visitLog.setVisitor(visitor);
         return logRepository.save(visitLog);
     }
-
     @Override
     public VisitLog getVisitLogById(Long id) {
         return logRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("VisitLog not found"));
     }
-
     @Override
     public List<VisitLog> getLogsByVisitor(Long visitorId) {
         return logRepository.findByVisitorId(visitorId);
