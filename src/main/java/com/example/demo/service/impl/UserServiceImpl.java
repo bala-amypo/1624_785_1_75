@@ -32,9 +32,9 @@
 // }
 package com.example.demo.service.impl;
 
-import com.example.demo.model.User;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
@@ -48,25 +48,43 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    // ✅ REGISTER USER
     @Override
     public User register(User user) {
 
-        if (userRepository.existsByEmail(user.getEmail())) {
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null) {
             throw new BadRequestException("Email already exists");
         }
 
         return userRepository.save(user);
     }
 
+    // ✅ LOGIN USER (ERROR 5 FIXED HERE)
     @Override
     public User login(User user) {
-        return userRepository.findByEmail(user.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-    }
-    @Override
-public User getByEmail(String email) {
-    return userRepository.findByEmail(email)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-}
 
+        User existingUser = userRepository.findByEmail(user.getEmail());
+
+        // ✅ NULL CHECK instead of orElseThrow
+        if (existingUser == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        return existingUser;
+    }
+
+    // ✅ REQUIRED METHOD (from interface)
+    @Override
+    public User getByEmail(String email) {
+
+        User user = userRepository.findByEmail(email);
+
+        // ✅ NULL CHECK instead of orElseThrow
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        return user;
+    }
 }
