@@ -31,6 +31,7 @@ import com.example.demo.model.Visitor;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.VisitorService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -43,17 +44,17 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public Visitor save(Visitor visitor) {
+    public Visitor createVisitor(Visitor visitor) {
         return repository.save(visitor);
     }
 
     @Override
-    public List<Visitor> getAll() {
+    public List<Visitor> getAllVisitors() {
         return repository.findAll();
     }
 
     @Override
-    public Visitor getById(Long id) {
-        return repository.findById(id).orElse(null); // returns null if not found
+    public Visitor getVisitorById(Long id) {
+        return repository.findById(id).orElse(null); // return null if not found
     }
 }
