@@ -45,8 +45,6 @@
 //     }
 // }
 
-// 
-
 package com.example.demo.service.impl;
 
 import com.example.demo.exception.ResourceNotFoundException;
@@ -76,20 +74,25 @@ public class RiskScoreServiceImpl implements RiskScoreService {
     @Override
     public RiskScore evaluateRisk(Long visitorId) {
 
-        // ✅ NO Optional used here
+        // ✅ Fetch visitor WITHOUT Optional (Spring Boot 3 safe)
         Visitor visitor;
         try {
-            visitor = visitorRepository.getById(visitorId);
+            visitor = visitorRepository.getReferenceById(visitorId);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Visitor not found");
         }
 
+        // ✅ Example risk calculation
         int totalScore = 30;
+
+        // ✅ Determine risk level
         String riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
 
+        // ✅ Fetch existing risk score
         RiskScore riskScore = riskScoreRepository.findByVisitorId(visitorId);
 
         if (riskScore == null) {
+            // create new risk score
             riskScore = RiskScore.builder()
                     .visitor(visitor)
                     .totalScore(totalScore)
@@ -97,6 +100,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
                     .evaluatedAt(LocalDateTime.now())
                     .build();
         } else {
+            // update existing risk score
             riskScore.setTotalScore(totalScore);
             riskScore.setRiskLevel(riskLevel);
             riskScore.setEvaluatedAt(LocalDateTime.now());
@@ -110,7 +114,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
         RiskScore riskScore = riskScoreRepository.findByVisitorId(visitorId);
         if (riskScore == null) {
-            throw new ResourceNotFoundException("RiskScore not found");
+            throw new ResourceNotFoundException("RiskScore not found for visitor");
         }
         return riskScore;
     }
