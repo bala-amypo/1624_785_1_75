@@ -76,23 +76,20 @@ public class RiskScoreServiceImpl implements RiskScoreService {
     @Override
     public RiskScore evaluateRisk(Long visitorId) {
 
-        // 1️⃣ Get Visitor
-        Visitor visitor = visitorRepository.findById(visitorId);
-        if (visitor == null) {
+        // ✅ NO Optional used here
+        Visitor visitor;
+        try {
+            visitor = visitorRepository.getById(visitorId);
+        } catch (Exception e) {
             throw new ResourceNotFoundException("Visitor not found");
         }
 
-        // 2️⃣ Calculate score (example logic)
         int totalScore = 30;
-
-        // 3️⃣ Determine risk level
         String riskLevel = RiskLevelUtils.determineRiskLevel(totalScore);
 
-        // 4️⃣ Get existing RiskScore
         RiskScore riskScore = riskScoreRepository.findByVisitorId(visitorId);
 
         if (riskScore == null) {
-            // create new
             riskScore = RiskScore.builder()
                     .visitor(visitor)
                     .totalScore(totalScore)
@@ -100,7 +97,6 @@ public class RiskScoreServiceImpl implements RiskScoreService {
                     .evaluatedAt(LocalDateTime.now())
                     .build();
         } else {
-            // update existing
             riskScore.setTotalScore(totalScore);
             riskScore.setRiskLevel(riskLevel);
             riskScore.setEvaluatedAt(LocalDateTime.now());
@@ -111,9 +107,10 @@ public class RiskScoreServiceImpl implements RiskScoreService {
 
     @Override
     public RiskScore getRiskScoreByVisitor(Long visitorId) {
+
         RiskScore riskScore = riskScoreRepository.findByVisitorId(visitorId);
         if (riskScore == null) {
-            throw new ResourceNotFoundException("RiskScore not found for visitor");
+            throw new ResourceNotFoundException("RiskScore not found");
         }
         return riskScore;
     }
