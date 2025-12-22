@@ -29,7 +29,7 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new RuntimeException("Visitor not found"));
 
-        int score = 20; // sample calculation
+        int score = 20;
         String level = RiskLevelUtils.determineRiskLevel(score);
 
         RiskScore riskScore = scoreRepository.findByVisitorId(visitorId);
