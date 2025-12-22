@@ -28,38 +28,32 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Visitor;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.VisitorRepository;
 import com.example.demo.service.VisitorService;
-import java.util.List;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class VisitorServiceImpl implements VisitorService {
 
-    private final VisitorRepository visitorRepository;
+    private final VisitorRepository repository;
 
-    public VisitorServiceImpl(VisitorRepository visitorRepository) {
-        this.visitorRepository = visitorRepository;
+    public VisitorServiceImpl(VisitorRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Visitor createVisitor(Visitor visitor) {
-        if (visitor.getPhone() == null || visitor.getPhone().isEmpty()) {
-            throw new BadRequestException("phone required");
-        }
-        return visitorRepository.save(visitor);
+    public Visitor save(Visitor visitor) {
+        return repository.save(visitor);
     }
 
     @Override
-    public Visitor getVisitorById(Long id) {
-        return visitorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
+    public List<Visitor> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public List<Visitor> getAllVisitors() {
-        return visitorRepository.findAll();
+    public Visitor getById(Long id) {
+        return repository.findById(id).orElse(null); // returns null if not found
     }
 }

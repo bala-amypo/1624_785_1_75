@@ -6,13 +6,16 @@
 //     Visitor getVisitorById(Long id);
 //     List<Visitor> getAllVisitors();
 // }
-
 package com.example.demo.service;
 
 import com.example.demo.model.Visitor;
 import java.util.List;
 
 public interface VisitorService {
-    Visitor save(Visitor visitor);
-    List<Visitor> getAll();
+
+    Visitor save(Visitor visitor);       // for creating visitor
+
+    List<Visitor> getAll();             // must match exactly
+
+    Visitor getById(Long id);           // must match exactly
 }
