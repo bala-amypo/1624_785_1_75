@@ -1,7 +1,6 @@
 package com.example.demo.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
@@ -11,14 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
-
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class VisitLog {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     @ManyToOne
     private Visitor visitor;
@@ -29,7 +29,5 @@ public class VisitLog {
     @PrePersist
     void onCreate() {
         entryTime = LocalDateTime.now();
-        if (exitTime != null && exitTime.isBefore(entryTime))
-            throw new RuntimeException("exitTime must be after entryTime");
     }
 }
