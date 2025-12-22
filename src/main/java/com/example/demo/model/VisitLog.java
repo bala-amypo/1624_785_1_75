@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,18 +18,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VisitLog {
-
     @Id @GeneratedValue
     private Long id;
-
     @ManyToOne
     private Visitor visitor;
-
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
     private String purpose;
     private String location;
-
     @PrePersist
     void onCreate() {
         entryTime = LocalDateTime.now();
