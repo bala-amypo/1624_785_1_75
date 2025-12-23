@@ -37,7 +37,6 @@ public class RiskScoreServiceImpl implements RiskScoreService {
                     .evaluatedAt(LocalDateTime.now())
                     .build();
         } else {
-            // update existing risk score
             riskScore.setTotalScore(totalScore);
             riskScore.setRiskLevel(riskLevel);
             riskScore.setEvaluatedAt(LocalDateTime.now());
