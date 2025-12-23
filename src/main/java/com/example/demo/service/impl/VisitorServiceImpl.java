@@ -6,24 +6,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class VisitorServiceImpl implements VisitorService {
-private final VisitorRepository repository;
-
+    private final VisitorRepository repository;
     public VisitorServiceImpl(VisitorRepository repository) {
         this.repository = repository;
     }
-
     @Override
     public Visitor createVisitor(Visitor visitor) {
         return repository.save(visitor);
     }
-
     @Override
     public List<Visitor> getAllVisitors() {
         return repository.findAll();
     }
-
     @Override
     public Visitor getVisitorById(Long id) {
-        return repository.findById(id).orElse(null); // return null if not found
+        return repository.findById(id).orElse(null); 
     }
 }
