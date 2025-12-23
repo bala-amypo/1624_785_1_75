@@ -1,44 +1,10 @@
-// package com.example.demo.service.impl;
-// import com.example.demo.model.User;
-// import com.example.demo.repository.UserRepository;
-// import com.example.demo.service.UserService;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// import org.springframework.stereotype.Service;
-// @Service
-// public class UserServiceImpl implements UserService {
-//     private final UserRepository repository;
-//     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//     public UserServiceImpl(UserRepository repository) {
-//         this.repository = repository;
-//     }
-//    @Override
-//     public User register(User user) {
-//         user.setPassword(encoder.encode(user.getPassword()));
-//         return repository.save(user);
-//     }
-//     @Override
-//     public User login(User user) {
-//         User dbUser = repository.findByEmail(user.getEmail());
-//         if (dbUser == null ||
-//             !encoder.matches(user.getPassword(), dbUser.getPassword())) {
-//             throw new RuntimeException("Invalid credentials");
-//         }
-//         return dbUser;
-//     }
-//     @Override
-//     public User getByEmail(String email) {
-//         return repository.findByEmail(email);
-//     }
-// }
 package com.example.demo.service.impl;
-
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -47,8 +13,6 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    // ✅ REGISTER USER
     @Override
     public User register(User user) {
 
@@ -59,28 +23,20 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
-
-    // ✅ LOGIN USER (ERROR 5 FIXED HERE)
     @Override
     public User login(User user) {
 
         User existingUser = userRepository.findByEmail(user.getEmail());
-
-        // ✅ NULL CHECK instead of orElseThrow
         if (existingUser == null) {
             throw new ResourceNotFoundException("User not found");
         }
 
         return existingUser;
     }
-
-    // ✅ REQUIRED METHOD (from interface)
     @Override
     public User getByEmail(String email) {
 
         User user = userRepository.findByEmail(email);
-
-        // ✅ NULL CHECK instead of orElseThrow
         if (user == null) {
             throw new ResourceNotFoundException("User not found");
         }

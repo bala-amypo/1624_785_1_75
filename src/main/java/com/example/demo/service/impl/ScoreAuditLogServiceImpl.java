@@ -22,7 +22,6 @@ public class ScoreAuditLogServiceImpl implements ScoreAuditLogService {
         this.visitorRepository = visitorRepository;
         this.riskRuleRepository = riskRuleRepository;
     }
-
     @Override
     public ScoreAuditLog addAuditLog(Long visitorId, Long ruleId, ScoreAuditLog log) {
 
