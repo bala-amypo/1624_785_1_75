@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,12 +16,13 @@ public class RiskScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @OneToOne
-    private Visitor visitor;
-    
+
     private Integer totalScore;
     private String riskLevel;
+
+    @OneToOne
+    @JoinColumn(name = "visitor_id")
+    private Visitor visitor;
 }
 
 
