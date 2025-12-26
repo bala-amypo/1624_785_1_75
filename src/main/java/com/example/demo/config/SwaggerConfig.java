@@ -21,7 +21,7 @@ public class SwaggerConfig {
                         .description("Backend API documentation for Visitor Risk Scoring Engine"))
                 // Server configuration
                 .servers(List.of(
-                        new Server().url("https://9038.408procr.amypo.ai/")
+                        new Server().url("https://9149.pro604cr.amypo.ai/")
                 ));
     }
 }
