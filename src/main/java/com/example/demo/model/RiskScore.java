@@ -3,49 +3,26 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RiskScore {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    private Integer score;
-
     @OneToOne
-    @JoinColumn(name = "visitor_id")
     private Visitor visitor;
+
+    private Integer totalScore;
+    private String riskLevel;
+
+    // 🔥 REQUIRED (tests + service use this)
+    private LocalDateTime evaluatedAt;
 }
-
-
-// package com.example.demo.model;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.OneToOne;
-// import lombok.AllArgsConstructor;
-// import lombok.Builder;
-// import lombok.Getter;
-// import lombok.NoArgsConstructor;
-// import lombok.Setter;
-// import java.time.LocalDateTime;
-// @Entity
-// @Getter @Setter
-// @Builder
-// @NoArgsConstructor
-// @AllArgsConstructor
-// public class RiskScore {
-//     @Id 
-//     @GeneratedValue
-//     private Long id;
-//     @OneToOne
-//     private Visitor visitor;
-//     private Integer totalScore;
-//     private String riskLevel;
-//     private LocalDateTime evaluatedAt;
-// }
