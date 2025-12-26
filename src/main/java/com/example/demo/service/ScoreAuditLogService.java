@@ -4,10 +4,13 @@ import com.example.demo.model.ScoreAuditLog;
 import java.util.List;
 
 public interface ScoreAuditLogService {
-    ScoreAuditLog logScoreChange(Long visitorId, Long riskScoreId, ScoreAuditLog log);
+    ScoreAuditLog logScoreChange(Long visitorId, Long riskRuleId, ScoreAuditLog log);
+
     ScoreAuditLog getLog(Long id);
+
     List<ScoreAuditLog> getLogsByVisitor(Long visitorId);
 }
+
 
 
 // package com.example.demo.service;
