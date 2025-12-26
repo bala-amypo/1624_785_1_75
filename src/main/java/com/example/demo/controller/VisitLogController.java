@@ -1,41 +1,36 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.VisitLog;
-import com.example.demo.service.VisitLogService;
+import com.example.demo.model.RiskScore;
+import com.example.demo.service.RiskScoreService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/visit-logs")
-@Tag(name = "Visit Logs")
-public class VisitLogController {
-    
-    private final VisitLogService visitLogService;
-    
-    public VisitLogController(VisitLogService visitLogService) {
-        this.visitLogService = visitLogService;
+@RequestMapping("/api/risk-scores")
+@RequiredArgsConstructor
+@Tag(name = "RiskScoreController")
+public class RiskScoreController {
+
+    private final RiskScoreService riskScoreService;
+
+    @PostMapping("/evaluate/{visitorId}")
+    public ResponseEntity<RiskScore> evaluate(@PathVariable Long visitorId) {
+        return ResponseEntity.ok(riskScoreService.evaluateVisitor(visitorId));
     }
-    
-    @PostMapping("/visitor/{visitorId}")
-    public ResponseEntity<VisitLog> create(@PathVariable Long visitorId, @RequestBody VisitLog visitLog) {
-        return ResponseEntity.ok(visitLogService.createVisitLog(visitorId, visitLog));
+
+    @GetMapping("/{visitorId}")
+    public ResponseEntity<RiskScore> get(@PathVariable Long visitorId) {
+        return ResponseEntity.ok(riskScoreService.getScoreForVisitor(visitorId));
     }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<VisitLog> get(@PathVariable Long id) {
-        return ResponseEntity.ok(visitLogService.getLog(id));
-    }
-    
-    @GetMapping("/visitor/{visitorId}")
-    public ResponseEntity<List<VisitLog>> listByVisitor(@PathVariable Long visitorId) {
-        return ResponseEntity.ok(visitLogService.getLogsByVisitor(visitorId));
+
+    @GetMapping
+    public ResponseEntity<List<RiskScore>> all() {
+        return ResponseEntity.ok(riskScoreService.getAllScores());
     }
 }
-
-
-
 
 
 
