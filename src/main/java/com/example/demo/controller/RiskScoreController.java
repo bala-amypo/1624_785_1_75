@@ -32,9 +32,6 @@ public class RiskScoreController {
     }
 }
 
-
-
-
 // package com.example.demo.controller;
 // import com.example.demo.model.RiskScore;
 // import com.example.demo.service.RiskScoreService;
