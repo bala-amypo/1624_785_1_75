@@ -1,11 +1,7 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
@@ -13,12 +9,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RiskScore {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer totalScore;
-    private String riskLevel;
+    private Integer score;
 
     @OneToOne
     @JoinColumn(name = "visitor_id")
