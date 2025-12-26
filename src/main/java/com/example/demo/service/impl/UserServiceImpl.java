@@ -29,34 +29,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public String register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Error: Email is already in use!");
+            throw new RuntimeException("Email already taken");
         }
 
-        // Use the builder pattern (Requires @Builder in User model)
         User user = User.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword())) // ENCODE HERE
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);
-        return "User registered successfully!";
+        return "User registered successfully";
     }
 
     @Override
     public AuthResponse login(AuthRequest request) {
-        // 1. This triggers the "Bad credentials" check
+        // This validates the password and clears the "Bad credentials" issue
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
+            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        // 2. If we reach here, the password is correct
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // 3. Return the response (Assuming AuthResponse has a String constructor)
-        return new AuthResponse("Login Successful for " + user.getEmail());
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        
+        // Assuming AuthResponse has a constructor that takes a string (token/message)
+        return new AuthResponse("Login successful for " + user.getEmail());
     }
 }
