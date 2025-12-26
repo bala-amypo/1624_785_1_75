@@ -2,56 +2,30 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-@Tag(name = "Authentication")
+@RequiredArgsConstructor
 public class AuthController {
-    
+
     private final UserService userService;
-    private final UserRepository userRepository;
-    
-    public AuthController(UserService userService) {
-        this.userService = userService;
-        this.userRepository = null;
-    }
-    
-    public AuthController(UserRepository userRepository, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder, com.example.demo.security.JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.userService = null;
-    }
-    
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        if (userRepository != null) {
-            Optional<User> existing = userRepository.findByEmail(request.getEmail());
-            if (existing.isPresent()) {
-                return ResponseEntity.status(400).body("Email already exists");
-            }
-            User user = User.builder()
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .roles(request.getRoles())
-                .build();
-            return ResponseEntity.ok(userRepository.save(user));
-        }
         try {
             return ResponseEntity.ok(userService.register(request));
         } catch (RuntimeException e) {
-            if (e.getMessage().contains("Email already exists")) {
-                return ResponseEntity.status(400).body(e.getMessage());
-            }
-            throw e;
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         return ResponseEntity.ok(userService.login(request));
