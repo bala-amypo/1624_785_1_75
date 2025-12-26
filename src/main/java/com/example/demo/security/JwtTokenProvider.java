@@ -2,26 +2,47 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 import java.util.Set;
 
 @Component
 public class JwtTokenProvider {
-    
+
+    private String secretKey = "secret";
+    private long validityInMilliseconds = 3600000; // 1h
+
     public String createToken(Long userId, String email, Set<String> roles) {
-        return "mock-jwt-token";
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("userId", userId);
+        claims.put("roles", roles);
+
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
-    
+
     public boolean validateToken(String token) {
-        return "mock-jwt-token".equals(token);
+        try {
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
-    
+
     public Claims getClaims(String token) {
-        return Jwts.claims().setSubject("test@example.com");
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 }
-
-
 
 // package com.example.demo.security;
 
