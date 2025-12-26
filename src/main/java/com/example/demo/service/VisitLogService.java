@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface VisitLogService {
     VisitLog createVisitLog(Long visitorId, VisitLog visitLog);
+
     VisitLog getLog(Long id);
+
     List<VisitLog> getLogsByVisitor(Long visitorId);
 }
 
