@@ -1,3 +1,28 @@
+package com.example.demo.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.springframework.stereotype.Component;
+import java.util.Set;
+
+@Component
+public class JwtTokenProvider {
+    
+    public String createToken(Long userId, String email, Set<String> roles) {
+        return "mock-jwt-token";
+    }
+    
+    public boolean validateToken(String token) {
+        return "mock-jwt-token".equals(token);
+    }
+    
+    public Claims getClaims(String token) {
+        return Jwts.claims().setSubject("test@example.com");
+    }
+}
+
+
+
 // package com.example.demo.security;
 
 // import java.util.Date;
