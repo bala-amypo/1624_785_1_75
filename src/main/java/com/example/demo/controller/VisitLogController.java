@@ -1,52 +1,30 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.VisitLog;
+import com.example.demo.service.VisitLogService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 
-@RestController
-@RequestMapping("/api/visitlogs")
+import java.util.List;
+
+@Tag(name = "VisitLog")
 public class VisitLogController {
 
-    @GetMapping
-    public String test() {
-        return "VisitLog API working";
+    private final VisitLogService service;
+
+    public VisitLogController(VisitLogService service) {
+        this.service = service;
+    }
+
+    public ResponseEntity<VisitLog> create(long visitorId, VisitLog log) {
+        return ResponseEntity.ok(service.createVisitLog(visitorId, log));
+    }
+
+    public ResponseEntity<VisitLog> get(long id) {
+        return ResponseEntity.ok(service.getLog(id));
+    }
+
+    public ResponseEntity<List<VisitLog>> listByVisitor(long visitorId) {
+        return ResponseEntity.ok(service.getLogsByVisitor(visitorId));
     }
 }
-
-
-
-
-
-
-
-// package com.example.demo.controller;
-// import com.example.demo.model.VisitLog;
-// import com.example.demo.service.VisitLogService;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
-// import java.util.List;
-// @RestController
-// @RequestMapping("/api/visit-logs")
-// public class VisitLogController {
-//     private final VisitLogService service;
-//     public VisitLogController(VisitLogService service) {
-//         this.service = service;
-//     }
-//     @PostMapping("/{visitorId}")
-//     public VisitLog createLog(
-//             @PathVariable Long visitorId,
-//             @RequestBody VisitLog visitLog) {
-//         return service.createVisitLog(visitorId, visitLog);
-//     }
-//     @GetMapping("/{id}")
-//     public VisitLog getLog(@PathVariable Long id) {
-//         return service.getVisitLogById(id);
-//     }
-//     @GetMapping("/visitor/{visitorId}")
-//     public List<VisitLog> getLogsByVisitor(@PathVariable Long visitorId) {
-//         return service.getLogsByVisitor(visitorId);
-//     }
-// }
