@@ -1,75 +1,31 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.service.UserService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/auth")
-@RequiredArgsConstructor
+@Tag(name = "Auth")
 public class AuthController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public AuthController(UserService service) {
+        this.service = service;
+    }
+
+    public ResponseEntity<?> register(RegisterRequest request) {
         try {
-            return ResponseEntity.ok(userService.register(request));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok(service.register(request));
+        } catch (Exception e) {
+            // 🔥 REQUIRED: return 400 when email exists
+            return ResponseEntity.badRequest().build();
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-        return ResponseEntity.ok(userService.login(request));
+    public ResponseEntity<AuthResponse> login(AuthRequest request) {
+        return ResponseEntity.ok(service.login(request));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// package com.example.demo.controller;
-// import com.example.demo.model.User;
-// import com.example.demo.service.UserService;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
-// @RestController
-// @RequestMapping("/auth")
-// public class AuthController {
-//     private final UserService service;
-//     public AuthController(UserService service) {
-//         this.service = service;
-//     }
-//     @PostMapping("/register")
-//     public User register(@RequestBody User user) {
-//         return service.register(user);
-//     }
-//     @PostMapping("/login")
-//     public User login(@RequestBody User user) {
-//         return service.login(user);
-//     }
-// }
