@@ -1,25 +1,20 @@
 package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class VisitLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String purpose;
-    private String location;
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
 
@@ -28,10 +23,8 @@ public class VisitLog {
     private Visitor visitor;
 
     @PrePersist
-    public void prePersist() {
-        if (this.entryTime == null) {
-            this.entryTime = LocalDateTime.now();
-        }
+    public void onCreate() {
+        entryTime = LocalDateTime.now();
     }
 }
 
