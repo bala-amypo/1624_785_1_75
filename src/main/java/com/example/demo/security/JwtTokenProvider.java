@@ -18,4 +18,7 @@ public class JwtTokenProvider {
     public Claims getClaims(String token) {
         return Jwts.claims().setSubject("user");
     }
+
+
+    
 }
