@@ -92,7 +92,7 @@ public class SecurityConfig {
                         "/swagger-ui.html"
                 ).permitAll()
                 .anyRequest().authenticated()
-            )
+            );
 
             // Custom user details service
             // .userDetailsService(customUserDetailsService)

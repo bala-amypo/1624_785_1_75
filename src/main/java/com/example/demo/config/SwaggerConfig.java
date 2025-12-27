@@ -18,7 +18,7 @@ public class SwaggerConfig {
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT");
-need to add return in swaggerConfig
+
         return new OpenAPI()
 
                 // API metadata
