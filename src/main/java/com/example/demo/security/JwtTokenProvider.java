@@ -2,8 +2,10 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import java.util.Set;
+import java.util.Date;
 
 public class JwtTokenProvider {
 
