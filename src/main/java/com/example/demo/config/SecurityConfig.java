@@ -95,10 +95,10 @@ public class SecurityConfig {
             )
 
             // Custom user details service
-            .userDetailsService(customUserDetailsService)
+            // .userDetailsService(customUserDetailsService)
 
             // Add JWT filter before UsernamePasswordAuthenticationFilter
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
