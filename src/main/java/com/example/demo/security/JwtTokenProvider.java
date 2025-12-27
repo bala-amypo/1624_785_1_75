@@ -6,6 +6,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.util.Set;
 import java.util.Date;
+import javax.crypto.SecretKey;
+
+import org.springframework.stereotype.Component;
+
+// import io.jsonwebtoken.Jwts;
+// import io.jsonwebtoken.SignatureAlgorithm;
+// import io.jsonwebtoken.security.Keys;
 
 public class JwtTokenProvider {
 
@@ -25,6 +32,10 @@ public class JwtTokenProvider {
 
     private final SecretKey key =
         Keys.hmacShaKeyFor(SECRET.getBytes());
+
+
+
+
      public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
