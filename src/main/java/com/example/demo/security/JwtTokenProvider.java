@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 // import io.jsonwebtoken.Jwts;
 // import io.jsonwebtoken.SignatureAlgorithm;
 // import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JwtTokenProvider {
 
     public String createToken(Long id, String email, Set<String> roles) {
