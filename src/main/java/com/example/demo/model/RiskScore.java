@@ -22,7 +22,5 @@ public class RiskScore {
 
     private Integer totalScore;
     private String riskLevel;
-
-    // 🔥 REQUIRED (tests + service use this)
     private LocalDateTime evaluatedAt;
 }

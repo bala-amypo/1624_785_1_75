@@ -29,14 +29,10 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
 
-        int totalScore = 10; // base score
-
-        // ensure non-negative
+        int totalScore = 10; 
         if (totalScore < 0) {
             totalScore = 0;
         }
-
-        // ✅ INLINE risk level logic (NO util)
         String riskLevel;
         if (totalScore < 20) {
             riskLevel = "LOW";

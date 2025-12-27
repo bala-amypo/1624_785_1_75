@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegisterRequest request) {
-
-        // 🔥 REQUIRED FOR NEGATIVE TEST
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Email already exists");
         }

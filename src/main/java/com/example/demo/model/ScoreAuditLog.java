@@ -16,12 +16,8 @@ public class ScoreAuditLog {
     @Id
     @GeneratedValue
     private Long id;
-
-    // 🔥 REQUIRED
     @ManyToOne
     private Visitor visitor;
-
-    // 🔥 REQUIRED
     @ManyToOne
     private RiskRule appliedRule;
 

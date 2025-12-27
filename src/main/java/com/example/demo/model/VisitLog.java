@@ -24,8 +24,6 @@ public class VisitLog {
     private LocalDateTime exitTime;
     private String purpose;
     private String location;
-
-    // 🔥 MUST BE PUBLIC (tests call it directly)
     @PrePersist
     public void prePersist() {
         if (entryTime == null) {
