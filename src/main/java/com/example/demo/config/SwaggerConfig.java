@@ -14,7 +14,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-        
+
                 // API metadata
                 .info(new Info()
                         .title("Visitor Risk Scoring API")
