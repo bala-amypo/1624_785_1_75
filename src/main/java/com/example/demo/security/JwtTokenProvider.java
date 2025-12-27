@@ -20,10 +20,15 @@ public class JwtTokenProvider {
     public Claims getClaims(String token) {
         return Jwts.claims().setSubject("user");
     }
-     public String generateToken(String email, String role) {
+    private static final String SECRET =
+        "sdjhgbwubwwbgwiub8QFQ8qg87G1bfewifbiuwg7iu8wefqhjk";
+
+    private final SecretKey key =
+        Keys.hmacShaKeyFor(SECRET.getBytes());
+     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("role", role)
+                .claim("role", email)
                 .setIssuedAt(new Date())
                 .setExpiration(
                     new Date(System.currentTimeMillis() + 10 * 60 * 1000)
