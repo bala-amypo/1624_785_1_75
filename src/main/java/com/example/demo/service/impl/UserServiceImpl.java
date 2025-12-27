@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponse login(AuthRequest request) {
-        // temporary login logic
+        
         String token = jwtTokenProvider.generateToken(request.getEmail());
         return new AuthResponse(token);
     }
