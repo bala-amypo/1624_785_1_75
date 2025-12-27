@@ -5,7 +5,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import java.util.List;
 
 @Configuration
@@ -13,6 +13,12 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
+
+    SecurityScheme bearerAuth = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+need to add return in swaggerConfig
         return new OpenAPI()
 
                 // API metadata
