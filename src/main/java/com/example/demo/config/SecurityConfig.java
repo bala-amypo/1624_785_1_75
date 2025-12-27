@@ -54,14 +54,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    // private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final CustomUserDetailsService customUserDetailsService;
+    // // private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    // private final CustomUserDetailsService customUserDetailsService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
-                          CustomUserDetailsService customUserDetailsService) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.customUserDetailsService = customUserDetailsService;
-    }
+    // public SecurityConfig(
+    //                       CustomUserDetailsService customUserDetailsService) {
+    //     this.customUserDetailsService = customUserDetailsService;
+    // }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
