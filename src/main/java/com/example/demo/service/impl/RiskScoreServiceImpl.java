@@ -29,10 +29,11 @@ public class RiskScoreServiceImpl implements RiskScoreService {
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Visitor not found"));
 
-        int totalScore = 10; 
+        int totalScore = 10;
         if (totalScore < 0) {
             totalScore = 0;
         }
+
         String riskLevel;
         if (totalScore < 20) {
             riskLevel = "LOW";
@@ -44,12 +45,12 @@ public class RiskScoreServiceImpl implements RiskScoreService {
             riskLevel = "CRITICAL";
         }
 
-        RiskScore riskScore = RiskScore.builder()
-                .visitor(visitor)
-                .totalScore(totalScore)
-                .riskLevel(riskLevel)
-                .evaluatedAt(LocalDateTime.now())
-                .build();
+        // ✅ NO Lombok builder – manual object creation
+        RiskScore riskScore = new RiskScore();
+        riskScore.setVisitor(visitor);
+        riskScore.setTotalScore(totalScore);
+        riskScore.setRiskLevel(riskLevel);
+        riskScore.setEvaluatedAt(LocalDateTime.now());
 
         return riskScoreRepository.save(riskScore);
     }
