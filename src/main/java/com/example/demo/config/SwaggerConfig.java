@@ -60,7 +60,7 @@ public class SwaggerConfig {
                         .description("API documentation for Customer Loyalty project"))
                 // 2. Your Specific Server URL (Preserved)
                 .servers(List.of(
-                        new Server().url("https://9202.408procr.amypo.ai/")
+                        new Server().url("")
                 ))
                 // 3. Add Authorize Padlock (Security Requirement)
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
