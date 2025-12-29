@@ -55,7 +55,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 // 1. Project Name and Description
                 .info(new Info()
-                        .title("")
+                        .title("Visitor Risk Scoring-Backend")
                         .version("1.0")
                         .description("API documentation for Customer Loyalty project"))
                 // 2. Your Specific Server URL (Preserved)
