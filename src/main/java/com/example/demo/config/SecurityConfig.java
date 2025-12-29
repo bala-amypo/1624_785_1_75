@@ -85,7 +85,7 @@ public class SecurityConfig {
             // Authorization rules
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                        "/api/auth/**",      // login/register endpoints
+                        "/api/auth/**",      
                         "/v3/api-docs/**",   // Swagger/OpenAPI if you use it
                         "/swagger-ui/**",
                         "/swagger-ui.html"
