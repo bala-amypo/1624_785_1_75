@@ -82,22 +82,15 @@ public class SecurityConfig {
             // Use stateless session (JWT)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // Authorization rules
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                         "/api/auth/**",      
-                        "/v3/api-docs/**",   // Swagger/OpenAPI if you use it
+                        "/v3/api-docs/**",   
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
                 .anyRequest().authenticated()
             );
-
-            // Custom user details service
-            // .userDetailsService(customUserDetailsService)
-
-            // Add JWT filter before UsernamePasswordAuthenticationFilter
-            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
